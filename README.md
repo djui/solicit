@@ -221,7 +221,7 @@ use std::str;
 use std::net::{TcpListener, TcpStream};
 use std::thread;
 
-use solicit::http::Response;
+use solicit::http::{Response, Header};
 use solicit::server::SimpleServer;
 
 fn main() {
@@ -238,8 +238,8 @@ fn main() {
             // Return a dummy response for every request
             Response {
                 headers: vec![
-                    (b":status".to_vec(), b"200".to_vec()),
-                    (b"x-solicit".to_vec(), b"Hello, World!".to_vec()),
+                    Header::new(b":status", b"200"),
+                    Header::new(b"x-solicit".to_vec(), b"Hello, World!".to_vec()),
                 ],
                 body: req.body.to_vec(),
                 stream_id: req.stream_id,
